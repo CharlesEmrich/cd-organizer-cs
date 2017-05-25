@@ -10,6 +10,8 @@ namespace CdOrganizer
   {
     public HomeModule()
     {
+      //TODO: Add ability to add CDs to genres which don't already exist.
+      //TODO: Add ability to search collection by artist.
       Get["/"] = _ => {
         Dictionary<string, object> indexDict = new Dictionary <string, object> {{"genres", Genre.GetAll()},
                                                                                 {"cds", Cd.GetAll()}};
