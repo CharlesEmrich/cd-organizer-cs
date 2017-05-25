@@ -61,9 +61,9 @@
   </div>
   <div class="col-xs-8">
     <ul>
-      @if(@Model["query"] != -1)
+      @if(@Model.ContainsKey("query"))
       {
-        @foreach(var cd in @Model["genres"].Find(@Model["query"]).GetAllCds())
+        @foreach(var cd in @Model["query"].GetAllCds())
         {
           <li><strong>@cd.GetTitle()</strong></li>
           <ul>

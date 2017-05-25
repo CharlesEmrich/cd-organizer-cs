@@ -12,27 +12,24 @@ namespace CdOrganizer
     {
       Get["/"] = _ => {
         Dictionary<string, object> indexDict = new Dictionary <string, object> {{"genres", Genre.GetAll()},
-                                                                                {"cds", Cd.GetAll()},
-                                                                                {"query", -1}};
+                                                                                {"cds", Cd.GetAll()}};
         return View["index.cshtml", indexDict];
       };
       Get["/filter/"] = _ => {
         Dictionary<string, object> indexDict = new Dictionary <string, object> {{"genres", Genre.GetAll()},
                                                                                 {"cds", Cd.GetAll()},
-                                                                                {"query", int.Parse(Request.Query["genre"])}};
+                                                                                {"query", Genre.Find(int.Parse(Request.Query["genre"]))}};
         return View["index.cshtml", indexDict];
       };
       Post["/genre/new"] = _ => {
         Dictionary<string, object> indexDict = new Dictionary <string, object> {{"genres", Genre.GetAll()},
-                                                                                {"cds", Cd.GetAll()},
-                                                                                {"query", -1}};
+                                                                                {"cds", Cd.GetAll()}};
         Genre newGenre = new Genre(Request.Form["genre-name"]);
         return View["index.cshtml", indexDict];
       };
       Post["/cd/new"] = _ => {
         Dictionary<string, object> indexDict = new Dictionary <string, object> {{"genres", Genre.GetAll()},
-                                                                                {"cds", Cd.GetAll()},
-                                                                                {"query", -1}};
+                                                                                {"cds", Cd.GetAll()}};
         Cd newCd = new Cd(Request.Form["cd-title"],
                           Request.Form["cd-artist"],
                           int.Parse(Request.Form["cd-release-year"]),
