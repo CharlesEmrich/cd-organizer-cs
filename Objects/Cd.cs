@@ -20,6 +20,7 @@ namespace CdOrganizer.Objects
       _genre       = genre;
 
       _instances.Add(this);
+      genre.GetAllCds().Add(this);
     }
 
     public int GetId()

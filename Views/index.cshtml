@@ -6,16 +6,16 @@
   <div class="col-xs-4">
     @if(@Model["genres"].Count > 0)
     {
-      <form class="form-inline" method="get">
+      <form id="filter-form" action="/filter/" class="form-inline" method="get">
         <div class="form-group">
           <select id="genre-dropdown" class="form-control" name="genre">
             @foreach(var genre in @Model["genres"])
             {
-              <option formaction="/genre/@genre.GetName()">@genre.GetName()</option>
+              <option value="@genre.GetId()" type="submit">@genre.GetName()</option>
             }
           </select>
         </div>
-        <button class="btn btn-sm" type="submit" name="button">Show</button>
+        <button class="btn btn-sm" >Show</button>
       </form>
     }
     <div class="row">
@@ -61,14 +61,27 @@
   </div>
   <div class="col-xs-8">
     <ul>
-      @foreach(var cd in @Model["cds"])
+      @if(@Model["query"] != -1)
       {
-        <li><strong>@cd.GetTitle()</strong></li>
-        <ul>
-          <li>@cd.GetArtist()</li>
-          <li>@cd.GetReleaseYear()</li>
-          <li>@cd.GetGenre().GetName()</li>
-        </ul>
+        @foreach(var cd in @Model["genres"].Find(@Model["query"]).GetAllCds())
+        {
+          <li><strong>@cd.GetTitle()</strong></li>
+          <ul>
+            <li>@cd.GetArtist()</li>
+            <li>@cd.GetReleaseYear()</li>
+            <li>@cd.GetGenre().GetName()</li>
+          </ul>
+        }
+      } else {
+        @foreach(var cd in @Model["cds"])
+        {
+          <li><strong>@cd.GetTitle()</strong></li>
+          <ul>
+            <li>@cd.GetArtist()</li>
+            <li>@cd.GetReleaseYear()</li>
+            <li>@cd.GetGenre().GetName()</li>
+          </ul>
+        }
       }
     </ul>
   </div>
